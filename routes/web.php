@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\exampleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,7 +9,24 @@ Route::get('/', function () {
 
 Route::get('/welcome', function () {
     return "welcome to our site";
+})->name('w');
+
+Route::get('/link', function () {
+    $url = route('w');
+    return "<a href='$url'> go to welcome page </a>";
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
+Route::post('/login_accepted', function () {
+    return "submit successfully";
+})->name('login_accepted');
+
+Route::get('test', [exampleController::class, 'my_data']);
+/* Route::get('/submit_page', function () {
+return "submi";
+})->name('submit_page'); */
 
 /* Route::get('/cars/{id?}', function ($id=0) {
 return "the cars is number ".$id;
@@ -55,52 +73,60 @@ return "welcome to users";
 });
 
  */
-Route::prefix('accounts')->group(function () {
-    Route::get('/', function () {
-        return "welcome to index";
-    });
+/* Route::prefix('accounts')->group(function () {
+Route::get('/', function () {
+return "welcome to index";
+});
 
-    Route::get('/admin', function () {
-        return "welcome to admin";
-    });
+Route::get('/admin', function () {
+return "welcome to admin";
+});
 
-    Route::get('/user', function () {
-        return "welcome to user";
-    });
+Route::get('/user', function () {
+return "welcome to user";
+});
 
 });
 
 Route::prefix('cars')->group(function () {
-    Route::get('/', function () {
-        return "welcome to cars";
-    });
+Route::get('/', function () {
+return "welcome to cars";
+});
 
-    Route::prefix('usa')->group(function () {
+Route::prefix('usa')->group(function () {
 
-        Route::get('/ford', function () {
-            return "welcome to usa ford";
-        });
+Route::get('/ford', function () {
+return "welcome to usa ford";
+});
 
-        Route::get('/tesla', function () {
-            return "welcome to usa tesla";
-        });
+Route::get('/tesla', function () {
+return "welcome to usa tesla";
+});
 
-    });
+});
 
-    Route::prefix('ger')->group(function () {
+Route::prefix('ger')->group(function () {
 
-        Route::get('/mercedes', function () {
-            return "welcome to ger mercedes";
-        });
+Route::get('/mercedes', function () {
+return "welcome to ger mercedes";
+});
 
-        Route::get('/audi', function () {
-            return "welcome to ger audi";
-        });
+Route::get('/audi', function () {
+return "welcome to ger audi";
+});
 
-        Route::get('/volkswagen', function () {
-            return "welcome to ger volkswagen";
-        });
+Route::get('/volkswagen', function () {
+return "welcome to ger volkswagen";
+});
 
-    });
+});
 
+});
+ */
+/* Route::fallback(function () {
+return redirect('/welcome');
+}); */
+
+Route::get('/cv', function () {
+    return view('cv');
 });
