@@ -23,6 +23,23 @@ Route::post('/login_accepted', function () {
     return "submit successfully";
 })->name('login_accepted');
 
+Route::get('/cv', function () {
+    return view('cv');
+});
+
+#for task3 
+#the task is to send the form data to another page
+#and to show the data in a proper format
+#begin
+Route::get('/login_task3', function () {
+    return view('task3_login');
+});
+
+Route::post('/submit_Page', function () {
+    return view('task3_response', $_POST);
+})->name('submit_Page');
+#end
+
 Route::get('test', [exampleController::class, 'my_data']);
 /* Route::get('/submit_page', function () {
 return "submi";
@@ -127,6 +144,4 @@ return "welcome to ger volkswagen";
 return redirect('/welcome');
 }); */
 
-Route::get('/cv', function () {
-    return view('cv');
-});
+
