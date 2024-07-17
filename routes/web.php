@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\exampleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\carController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,8 +32,8 @@ Route::get('/cv', function () {
 #the task is to send the form data to another page
 #and to show the data in a proper format
 #begin
-Route::get('/login_task3', function () {
-    return view('task3_login');
+Route::get('/contactUs_task3', function () {
+    return view('task3_contactUs');
 });
 
 Route::post('/submit_Page', function () {
@@ -41,6 +42,9 @@ Route::post('/submit_Page', function () {
 #end
 
 Route::get('test', [exampleController::class, 'my_data']);
+Route::get('car/create', [carController::class, 'create']);
+Route::post('cars', [carController::class, 'store'])->name('car.store');
+
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */
