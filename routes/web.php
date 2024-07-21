@@ -3,6 +3,7 @@
 use App\Http\Controllers\exampleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\carController;
+use App\Http\Controllers\ClassController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,6 +45,14 @@ Route::post('/submit_Page', function () {
 Route::get('test', [exampleController::class, 'my_data']);
 Route::get('car/create', [carController::class, 'create']);
 Route::post('cars', [carController::class, 'store'])->name('car.store');
+
+#for task4
+#the task is to save the class data in the database
+#using controller and Model
+#begin
+Route::get('class/create', [ClassController::class, 'create']);
+Route::post('classes', [ClassController::class, 'store'])->name('class.store');
+#end
 
 /* Route::get('/submit_page', function () {
 return "submi";
