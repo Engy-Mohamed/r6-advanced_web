@@ -12,7 +12,8 @@ class carController extends Controller
      */
     public function index()
     {
-        //
+        $cars = Car::get();
+        return view('cars', compact('cars'));
     }
 
     /**
@@ -34,7 +35,7 @@ class carController extends Controller
             'carTitle' => $request['carTitle'],
             'price' => $request['price'],
             'description' => $request['description'],
-            'published' => $request['published']=="on"?true:false,
+            'published' => isset($request['published']),
         ]); 
         
         echo "The data is submitted successfully";
@@ -54,7 +55,8 @@ class carController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $car = Car::findOrFail($id);
+        return view('edit_car', compact('car'));
     }
 
     /**
