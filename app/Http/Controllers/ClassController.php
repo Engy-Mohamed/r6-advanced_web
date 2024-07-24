@@ -12,7 +12,8 @@ class ClassController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Classes::get();
+        return view('classes', compact('classes'));
     }
 
     /**
@@ -54,7 +55,8 @@ class ClassController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $class = Classes::findOrFail($id);
+        return view('edit_class', compact('class'));
     }
 
     /**

@@ -57,6 +57,12 @@ Route::post('classes', [ClassController::class, 'store'])->name('class.store');
 Route::get('cars', [CarController::class, 'index'])->name('car.index');
 Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit');
 
+#task5
+#begin
+Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
+Route::get('classes/{id}', [ClassController::class, 'edit'])->name('classes.edit');
+#end
+
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */
