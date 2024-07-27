@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Http\Request;
 
 class carController extends Controller
 {
@@ -30,16 +30,16 @@ class carController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         Car::create([
             'carTitle' => $request['carTitle'],
             'price' => $request['price'],
             'description' => $request['description'],
             'published' => isset($request['published']),
-        ]); 
-        
-        echo "The data is submitted successfully";
-       
+        ]);
+
+        return redirect()->route('cars.index');
+
     }
 
     /**
@@ -47,7 +47,8 @@ class carController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $car = Car::findOrFail($id);
+        return view('car_details', compact('car'));
     }
 
     /**
@@ -64,7 +65,15 @@ class carController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = [
+            'carTitle' => $request['carTitle'],
+            'price' => $request['price'],
+            'description' => $request['description'],
+            'published' => isset($request['published']),
+        ];
+        Car::where('id', $id)->update($data);
+
+        return redirect()->route('cars.index');
     }
 
     /**
@@ -72,6 +81,14 @@ class carController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Car::where('id', $id)->delete();
+        return redirect()->route('cars.index');
+    }
+
+    public function showDeleted()
+    {
+        $cars = Car::onlyTrashed()->get();
+        return view('trashed_cars', compact('cars'));
+
     }
 }

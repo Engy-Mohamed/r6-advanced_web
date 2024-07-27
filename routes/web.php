@@ -46,6 +46,7 @@ Route::get('test', [exampleController::class, 'my_data']);
 Route::get('car/create', [carController::class, 'create']);
 Route::post('cars', [carController::class, 'store'])->name('car.store');
 
+
 #for task4
 #the task is to save the class data in the database
 #using controller and Model
@@ -54,8 +55,12 @@ Route::get('class/create', [ClassController::class, 'create']);
 Route::post('classes', [ClassController::class, 'store'])->name('class.store');
 #end
 
-Route::get('cars', [CarController::class, 'index'])->name('car.index');
-Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit');
+Route::get('cars', [CarController::class, 'index'])->name('cars.index');
+Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit')->whereNumber('id');
+Route::post('cars/{id}', [CarController::class, 'update'])->name('cars.update');
+Route::get('cars/show/{id}', [CarController::class, 'show'])->name('cars.show');
+Route::get('cars/destroy/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
+Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted');
 
 #task5
 #begin
