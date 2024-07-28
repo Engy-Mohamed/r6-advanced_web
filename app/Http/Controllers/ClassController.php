@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Classes;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
@@ -32,14 +33,14 @@ class ClassController extends Controller
         Classes::create([
             'class_name' => $request['class_name'],
             'capacity' => $request['capacity'],
-            'is_fulled' => $request['is_fulled']=="on"?true:false,
+            'is_fulled' => $request['is_fulled'] == "on" ? true : false,
             'price' => $request['price'],
             'time_From' => $request['time_From'],
             'time_to' => $request['time_to'],
-            
-        ]); 
-        
-        echo "The data is saved successfully";
+
+        ]);
+
+        return redirect()->route('classes.index');
     }
 
     /**
@@ -47,7 +48,8 @@ class ClassController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $class = Classes::findOrFail($id);
+        return view('class_details', compact('class'));
     }
 
     /**
@@ -64,14 +66,32 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = [
+            'class_name' => $request['class_name'],
+            'capacity' => $request['capacity'],
+            'is_fulled' => $request['is_fulled'] == "on" ? true : false,
+            'price' => $request['price'],
+            'time_From' => $request['time_From'],
+            'time_to' => $request['time_to'],
+
+        ];
+        Classes::where('id', $id)->update($data);
+
+        return redirect()->route('classes.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request):RedirectResponse
     {
-        //
+        Classes::where('id', $request['id'])->delete();
+        return redirect()->route('classes.index');
+    }
+    public function showDeleted()
+    {
+        $classes = Classes::onlyTrashed()->get();
+        return view('trashed_classes', compact('classes'));
+
     }
 }

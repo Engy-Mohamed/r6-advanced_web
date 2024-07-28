@@ -33,7 +33,9 @@
               <th scope="col">Time From</th>
               <th scope="col">Time To</th>
               <th scope="col">Is Full</th>
+              <th scope="col">Show</th>
               <th scope="col">Edit</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -45,9 +47,18 @@
               <td>{{$class_['time_From']}}</td>
               <td>{{$class_['time_to']}}</td>
               <td>{{$class_['is_fulled']?'YES':'NO'}}</td>
+              <td><a href="{{route('classes.show',$class_['id'])}}">show</a></td>
               <td><a href="{{route('classes.edit',$class_['id'])}}">edit</a></td>
+              <td>
+                <form action="{{route('classes.destroy')}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <input type="hidden" name="id" value="{{ $class_['id'] }}">
+                  <input type="submit" value="delete" onclick="return confirm('Are you sure?')">
+                </form>
+            </td>
             </tr>
-          @endforeach  
+          @endforeach
           </tbody>
         </table>
       </div>

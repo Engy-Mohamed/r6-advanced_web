@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\exampleController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\carController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\exampleController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,7 +29,7 @@ Route::get('/cv', function () {
     return view('cv');
 });
 
-#for task3 
+#for task3
 #the task is to send the form data to another page
 #and to show the data in a proper format
 #begin
@@ -45,7 +45,6 @@ Route::post('/submit_Page', function () {
 Route::get('test', [exampleController::class, 'my_data']);
 Route::get('car/create', [carController::class, 'create']);
 Route::post('cars', [carController::class, 'store'])->name('car.store');
-
 
 #for task4
 #the task is to save the class data in the database
@@ -65,7 +64,15 @@ Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.sh
 #task5
 #begin
 Route::get('classes', [ClassController::class, 'index'])->name('classes.index');
-Route::get('classes/{id}', [ClassController::class, 'edit'])->name('classes.edit');
+Route::get('classes/{id}', [ClassController::class, 'edit'])->name('classes.edit')->whereNumber('id');
+#end
+
+#task6
+#begin
+Route::get('classes/{id}/show', [ClassController::class, 'show'])->name('classes.show')->whereNumber('id');
+Route::delete('classes/delete', [ClassController::class, 'destroy'])->name('classes.destroy');
+Route::put('classes/{id}/', [ClassController::class, 'update'])->name('classes.update')->whereNumber('id');
+Route::get('classes/trashed', [ClassController::class, 'showDeleted'])->name('classes.showDeleted');
 #end
 
 /* Route::get('/submit_page', function () {
@@ -170,5 +177,3 @@ return "welcome to ger volkswagen";
 /* Route::fallback(function () {
 return redirect('/welcome');
 }); */
-
-
