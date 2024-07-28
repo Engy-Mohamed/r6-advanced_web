@@ -60,6 +60,8 @@ Route::post('cars/{id}', [CarController::class, 'update'])->name('cars.update');
 Route::get('cars/show/{id}', [CarController::class, 'show'])->name('cars.show');
 Route::get('cars/destroy/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
 Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted');
+Route::patch('cars/restore', [CarController::class, 'restore'])->name('cars.restore');
+Route::delete('cars/trashed/delete', [CarController::class, 'force_delete'])->name('cars.force_delete');
 
 #task5
 #begin
