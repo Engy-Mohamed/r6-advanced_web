@@ -71,11 +71,18 @@ Route::get('classes/{id}', [ClassController::class, 'edit'])->name('classes.edit
 
 #task6
 #begin
-Route::get('classes/{id}/show', [ClassController::class, 'show'])->name('classes.show')->whereNumber('id');
+Route::get('classes/{class}/show', [ClassController::class, 'show'])->name('classes.show')->whereNumber('id');
 Route::delete('classes/delete', [ClassController::class, 'destroy'])->name('classes.destroy');
 Route::put('classes/{id}/', [ClassController::class, 'update'])->name('classes.update')->whereNumber('id');
 Route::get('classes/trashed', [ClassController::class, 'showDeleted'])->name('classes.showDeleted');
 #end
+
+#task7
+#begin
+Route::patch('classes/restore', [ClassController::class, 'restore'])->name('classes.restore');
+Route::delete('classes/trashed/delete', [ClassController::class, 'force_delete'])->name('classes.force_delete');
+#end
+
 
 /* Route::get('/submit_page', function () {
 return "submi";

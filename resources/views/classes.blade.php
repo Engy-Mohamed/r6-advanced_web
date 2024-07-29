@@ -54,7 +54,7 @@
                   @csrf
                   @method('DELETE')
                   <input type="hidden" name="id" value="{{ $class_['id'] }}">
-                  <input type="submit" value="delete" onclick="return confirm('Are you sure?')" class="btn btn-link">
+                  <input type="submit" value="delete" onclick="return confirm('Are you sure?')" class="btn btn-link m-0 p-0">
                 </form>
             </td>
             </tr>
