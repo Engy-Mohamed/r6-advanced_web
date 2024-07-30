@@ -65,15 +65,14 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = [
-            'class_name' => $request['class_name'],
-            'capacity' => $request['capacity'],
-            'is_fulled' => $request['is_fulled'] == "on" ? true : false,
-            'price' => $request['price'],
-            'time_From' => $request['time_From'],
-            'time_to' => $request['time_to'],
-
-        ];
+        $data = $request->validate([
+            'class_name' => 'required|alpha_num:ascii|max:255',
+            'capacity' => 'required|numeric|integer|min:1', 
+            'price' => 'required|decimal:0,2',
+            'time_From' => 'required|date|after:tomorrow',
+            'time_to' => 'required|date|after:time_From',
+        ]);
+        $data['is_fulled'] = $request['is_fulled'] == "on" ? true : false;
         Classes::where('id', $id)->update($data);
 
         return redirect()->route('classes.index');
