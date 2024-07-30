@@ -32,7 +32,7 @@ class ClassController extends Controller
     {
         $data = $request->validate([
             'class_name' => 'required|alpha_num:ascii|max:255',
-            'capacity' => 'required|numeric|min:1', 
+            'capacity' => 'required|numeric|integer|min:1', 
             'price' => 'required|decimal:0,2',
             'time_From' => 'required|date|after:tomorrow',
             'time_to' => 'required|date|after:time_From',
