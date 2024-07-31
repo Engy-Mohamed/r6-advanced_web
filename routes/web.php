@@ -4,6 +4,7 @@ use App\Http\Controllers\carController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\exampleController;
 use Illuminate\Support\Facades\Route;
+use phpDocumentor\Reflection\DocBlock\Tags\Example;
 
 Route::get('/', function () {
     return view('welcome');
@@ -83,7 +84,8 @@ Route::patch('classes/restore', [ClassController::class, 'restore'])->name('clas
 Route::delete('classes/trashed/delete', [ClassController::class, 'force_delete'])->name('classes.force_delete');
 #end
 
-
+Route::get('uploadForm', [ExampleController::class, 'uploadForm'])->name('uploadForm');
+Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */

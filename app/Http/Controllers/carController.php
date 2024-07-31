@@ -66,12 +66,12 @@ class carController extends Controller
     public function update(Request $request, string $id)
     {
        
-        $data = [
-            'carTitle' => $request['carTitle'],
-            'price' => $request['price'],
-            'description' => $request['description'],
-            'published' => isset($request['published']),
-        ];
+        $data = $request->validate([
+            'carTitle' => 'required|string',
+            'description' => 'required|string|max:1000', 
+            'price' => 'required|decimal:0,2|between:10000,9999999999.99',
+        ]);
+        $data['published'] =  isset($request['published']);
         Car::where('id', $id)->update($data);
 
         return redirect()->route('cars.index');
