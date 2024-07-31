@@ -33,8 +33,7 @@
               <th scope="col">Time From</th>
               <th scope="col">Time To</th>
               <th scope="col">Is Full</th>
-              <th scope="col">Show</th>
-              <th scope="col">Edit</th>
+              <th scope="col">Restore</th>
               <th scope="col">Permanent Delete</th>
             </tr>
           </thead>
@@ -47,9 +46,22 @@
               <td>{{$class_['time_From']}}</td>
               <td>{{$class_['time_to']}}</td>
               <td>{{$class_['is_fulled']?'YES':'NO'}}</td>
-              <td><a href="{{route('classes.show',$class_['id'])}}">show</a></td>
-              <td><a href="{{route('classes.edit',$class_['id'])}}">edit</a></td>
-              <td><a href="" onclick="return checkDelete()">permanent delete</a></td>
+              <td>
+                <form action="{{route('classes.restore')}}" method="post">
+                    @csrf
+                    @method('PATCH')
+                  <input type="hidden" name="id" value="{{ $class_['id'] }}">
+                  <button type="submit" class="btn btn-link m-0 p-0">restore</button>
+                </form>
+              </td>
+              <td>
+                <form action="{{route('classes.force_delete')}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                  <input type="hidden" name="id" value="{{ $class_['id'] }}">
+                  <button type="submit" onclick="confirm('Are you sure you want to permanent delete ?')" class="btn btn-link m-0 p-0">permanent delete</button>
+                </form>
+              </td>
             </tr>
           @endforeach
           </tbody>
