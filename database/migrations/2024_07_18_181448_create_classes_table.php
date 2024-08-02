@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->dateTime('time_From');
             $table->dateTime('time_to');
+            $table->string('image');
             $table->softDeletes();
             $table->timestamps();
         });

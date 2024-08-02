@@ -23,44 +23,69 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Add Class</h2>
-        <form action="{{route('class.store')}}" method="POST" class="px-md-5">
+        <form action="{{route('class.store')}}" method="POST" class="px-md-5" enctype="multipart/form-data">
         @csrf 
           <div class="form-group mb-3 row">
             <label for="class_name" class="form-label col-md-2 fw-bold text-md-end">Class Name:</label>
             <div class="col-md-10">
-              <input type="text" placeholder="class name" class="form-control py-2" name="class_name" />
+              <input type="text" placeholder="class name" class="form-control py-2" name="class_name" value="{{old('class_name')}}"/>
+              @error('class_name')
+              <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="capacity" class="form-label col-md-2 fw-bold text-md-end">Capacity:</label>
             <div class="col-md-10">
-              <input type="number" step="1" placeholder="Enter capacity" class="form-control py-2" name="capacity" />
+              <input type="number" step="1" placeholder="Enter capacity" class="form-control py-2" name="capacity" value="{{old('capacity')}}" />
+              @error('capacity')
+              <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="price" class="form-label col-md-2 fw-bold text-md-end">Price:</label>
             <div class="col-md-10">
-              <input type="number" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" />
+              <input type="number" step="0.1" placeholder="Enter price" class="form-control py-2" name="price" value="{{old('price')}}" />
+              @error('price')
+              <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <hr>
           <div class="form-group mb-3 row">
             <label for="time_From" class="form-label col-md-2 fw-bold text-md-end">Time From:</label>
             <div class="col-md-10">
-              <input type="datetime-local" class="form-control py-2" name="time_From" />
+              <input type="datetime-local" class="form-control py-2" name="time_From" value="{{old('time_From')}}" />
+              @error('time_From')
+              <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <div class="form-group mb-3 row">
             <label for="time_to" class="form-label col-md-2 fw-bold text-md-end">Time To:</label>
             <div class="col-md-10">
-              <input type="datetime-local" class="form-control py-2" name="time_to" />
+              <input type="datetime-local" class="form-control py-2" name="time_to" value="{{old('time_to')}}" />
+              @error('time_to')
+              <div class="alert alert-warning">{{$message}}</div>
+              @enderror
             </div>
           </div>
           <hr>
           <div class="form-group mb-3 row">
-            <label for="is_fulled" class="form-label col-md-2 fw-bold text-md-end">Is fulled:</label>
+            <label for="time_From" class="form-label col-md-2 fw-bold text-md-end">Class Image:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="is_fulled" />
+              <input type="file" class="form-control" id="image" placeholder="Enter image"  name="image" />
+              @error('image')
+              <div class="alert alert-warning">{{$message}}</div>
+              @enderror
+            </div>
+          </div>
+          <hr>
+          <div class="form-group mb-3 row">
+            <label for="is_fulled" class="form-label col-md-2 fw-bold text-md-end">Is Fulled:</label>
+            <div class="col-md-10">
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="is_fulled" @checked(old("is_fulled")) />
             </div>
           </div>
           <div class="text-md-end">

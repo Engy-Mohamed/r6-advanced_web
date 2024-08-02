@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Traits\Common;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class ClassController extends Controller
     /**
      * Display a listing of the resource.
      */
+    use Common;
     public function index()
     {
         $classes = Classes::get();
@@ -32,11 +34,16 @@ class ClassController extends Controller
     {
         $data = $request->validate([
             'class_name' => 'required|alpha_num:ascii|max:255',
-            'capacity' => 'required|numeric|integer|min:1', 
+            'capacity' => 'required|numeric|integer|min:1',
             'price' => 'required|decimal:0,2',
             'time_From' => 'required|date|after:tomorrow',
             'time_to' => 'required|date|after:time_From',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         ]);
+
+        $file_name = $this->uploadFile($request['image'], 'assets/images');
+
+        $data['image'] = $file_name;
         $data['is_fulled'] = $request['is_fulled'] == "on" ? true : false;
         Classes::create($data);
 
@@ -48,6 +55,7 @@ class ClassController extends Controller
      */
     public function show(Classes $class)
     {
+        $class['image'] = 'assets/images/' . $class['image'];
         return view('class_details', compact('class'));
     }
 
@@ -67,11 +75,16 @@ class ClassController extends Controller
     {
         $data = $request->validate([
             'class_name' => 'required|alpha_num:ascii|max:255',
-            'capacity' => 'required|numeric|integer|min:1', 
+            'capacity' => 'required|numeric|integer|min:1',
             'price' => 'required|decimal:0,2',
             'time_From' => 'required|date|after:tomorrow',
             'time_to' => 'required|date|after:time_From',
+            'image' => 'mimes:png,jpg,jpeg|max:2048',
         ]);
+      
+        $file_name = ($request['image'] == null) ? $request['old_image']:$this->uploadFile($request['image'], 'assets/images');
+
+        $data['image'] = $file_name;
         $data['is_fulled'] = $request['is_fulled'] == "on" ? true : false;
         Classes::where('id', $id)->update($data);
 
@@ -81,7 +94,7 @@ class ClassController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request):RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
         Classes::where('id', $request['id'])->delete();
         return redirect()->route('classes.index');

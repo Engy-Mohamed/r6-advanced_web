@@ -17,5 +17,6 @@ class Classes extends Model
         'price',
         'time_From',
         'time_to',
+        'image',
     ];
 }
