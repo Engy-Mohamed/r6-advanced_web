@@ -23,7 +23,7 @@
     <div class="container my-5">
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Edit Car</h2>
-        <form action="{{route('cars.update',$car['id'])}}" method="POST" class="px-md-5">
+        <form action="{{route('cars.update',$car['id'])}}" method="POST" class="px-md-5" enctype="multipart/form-data">
         @csrf 
           <div class="form-group mb-3 row">
             <label for="carTitle" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
@@ -54,11 +54,20 @@
           </div>
           <hr>
           <div class="form-group mb-3 row">
-            <label for="published" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
+            <label for="time_From" class="form-label col-md-2 fw-bold text-md-end">Car Image:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked(old("published",$car["published"])) />
+              <input type="file" class="form-control" id="image" placeholder="Enter image"  name="image" />
             </div>
           </div>
+          <hr>
+          <div class="form-group mb-3 row">
+            <label for="published" class="form-label col-md-2 fw-bold text-md-end">Published:</label>
+            <div class="col-md-10">
+            <input type="hidden" name="published" value="0">
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" value="1" @checked(old("published",$car["published"])) />
+            </div>
+          </div>
+          <input type="hidden" name="old_image" value="{{ $car['image'] }}">
           <div class="text-md-end">
             <button type="submit" class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               Update Car

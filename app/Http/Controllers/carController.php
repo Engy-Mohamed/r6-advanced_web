@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
+use App\Traits\Common;
 
 class carController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    use Common;
     public function index()
     {
         $cars = Car::get();
@@ -34,7 +36,11 @@ class carController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000', 
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         ]);
+        $file_name = $this->uploadFile($request['image'], 'assets/images');
+
+        $data['image'] = $file_name;
         $data['published'] =  isset($request['published']);
         Car::create($data);
 
@@ -48,6 +54,7 @@ class carController extends Controller
     public function show(string $id)
     {
         $car = Car::findOrFail($id);
+        $car['image'] = 'assets/images/' . $car['image'];
         return view('car_details', compact('car'));
     }
 
@@ -70,8 +77,13 @@ class carController extends Controller
             'carTitle' => 'required|string',
             'description' => 'required|string|max:1000', 
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
+            'image' => 'mimes:png,jpg,jpeg|max:2048',
+            'published' => 'required:boolean'
         ]);
-        $data['published'] =  isset($request['published']);
+
+        $file_name = ($request->hasFile('image')) ? $this->uploadFile($request['image'], 'assets/images'):$request['old_image'];
+        $data['image'] = $file_name;
+
         Car::where('id', $id)->update($data);
 
         return redirect()->route('cars.index');

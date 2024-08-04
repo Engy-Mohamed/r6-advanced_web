@@ -80,12 +80,12 @@ class ClassController extends Controller
             'time_From' => 'required|date|after:tomorrow',
             'time_to' => 'required|date|after:time_From',
             'image' => 'mimes:png,jpg,jpeg|max:2048',
+            'is_fulled' => 'required:boolean'
         ]);
       
         $file_name = ($request['image'] == null) ? $request['old_image']:$this->uploadFile($request['image'], 'assets/images');
-
         $data['image'] = $file_name;
-        $data['is_fulled'] = $request['is_fulled'] == "on" ? true : false;
+
         Classes::where('id', $id)->update($data);
 
         return redirect()->route('classes.index');
