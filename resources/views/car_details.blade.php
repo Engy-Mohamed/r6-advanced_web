@@ -26,7 +26,7 @@
         <div class="card bg-light border-0">
           <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-10 position-relative overflow-hidden">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROYjj94a1EKPObxDQCbqSdwmIbkhQt5Np5lQ&s"
+              <img src="{{asset($car['image'])}}"
                 alt="" class="card-img"
                 style="position: absolute; margin: auto; top: 50%; transform: translateY(-50%); width: 100%;height: 100%; object-fit: cover;" />
             </div>
@@ -50,7 +50,7 @@
                 </p>
               </div>
               <div class="text-md-end">
-                <a href="{{route('car.index')}}" class="btn mt-4 btn-primary text-white fs-5 fw-bold border-0 py-2 px-md-5">
+                <a href="{{route('cars.index')}}" class="btn mt-4 btn-primary text-white fs-5 fw-bold border-0 py-2 px-md-5">
                   Back to All cars
                 </a>
               </div>

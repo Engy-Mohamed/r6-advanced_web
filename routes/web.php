@@ -86,6 +86,8 @@ Route::delete('classes/trashed/delete', [ClassController::class, 'force_delete']
 
 Route::get('uploadForm', [ExampleController::class, 'uploadForm'])->name('uploadForm');
 Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
+
+Route::get('index', [ExampleController::class, 'index'])->name('index');
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */

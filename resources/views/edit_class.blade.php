@@ -83,7 +83,8 @@
           <div class="form-group mb-3 row">
             <label for="is_fulled" class="form-label col-md-2 fw-bold text-md-end">Is fulled:</label>
             <div class="col-md-10">
-              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="is_fulled" @checked(old("is_fulled",$class["is_fulled"])) />
+              <input type="hidden" name="is_fulled" value="0">
+              <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" value="1" name="is_fulled"  @checked(old("is_fulled",$class["is_fulled"])) />
             </div>
           </div>
           <input type="hidden" name="old_image" value="{{ $class['image'] }}">
