@@ -38,7 +38,7 @@ class carController extends Controller
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         ]);
-        $file_name = $this->uploadFile($request['image'], 'assets/images');
+        $file_name = $this->uploadFile($request['image'], 'assets\images\cars');
 
         $data['image'] = $file_name;
         $data['published'] =  isset($request['published']);
@@ -54,7 +54,7 @@ class carController extends Controller
     public function show(string $id)
     {
         $car = Car::findOrFail($id);
-        $car['image'] = 'assets/images/' . $car['image'];
+        $car['image'] = 'assets/images/cars/' . $car['image'];
         return view('car_details', compact('car'));
     }
 

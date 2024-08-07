@@ -45,14 +45,14 @@ Route::post('/submit_Page', function () {
 #end
 
 Route::get('test', [exampleController::class, 'my_data']);
-Route::get('car/create', [carController::class, 'create']);
+Route::get('cars/create', [carController::class, 'create']);
 Route::post('cars', [carController::class, 'store'])->name('car.store');
 
 #for task4
 #the task is to save the class data in the database
 #using controller and Model
 #begin
-Route::get('class/create', [ClassController::class, 'create']);
+Route::get('classes/create', [ClassController::class, 'create']);
 Route::post('classes', [ClassController::class, 'store'])->name('class.store');
 #end
 
@@ -97,7 +97,7 @@ Route::controller(ProductController::class)->group(function(){
     Route::post('products','store')->name('product.store');
 });
 #end
-
+Route::get('about', [ExampleController::class, 'about'])->name('example.about');
 
 /* Route::get('/submit_page', function () {
 return "submi";

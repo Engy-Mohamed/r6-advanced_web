@@ -26,4 +26,9 @@ class ExampleController extends Controller
         return view('index',compact('products'));
     }
 
+    public function about()
+    {
+        return view('about');
+    }
+
 }
