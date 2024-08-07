@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ExampleController extends Controller
 {
@@ -21,7 +22,8 @@ class ExampleController extends Controller
 
     public function index()
     {
-        return view('index');
+        $products = Product::orderBy('created_at', 'desc')->get()->take(3);
+        return view('index',compact('products'));
     }
 
 }

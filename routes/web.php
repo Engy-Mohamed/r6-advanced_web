@@ -3,6 +3,7 @@
 use App\Http\Controllers\carController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\exampleController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\DocBlock\Tags\Example;
 
@@ -88,6 +89,16 @@ Route::get('uploadForm', [ExampleController::class, 'uploadForm'])->name('upload
 Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
 
 Route::get('index', [ExampleController::class, 'index'])->name('index');
+
+#for task9
+#begin
+Route::controller(ProductController::class)->group(function(){
+    Route::get('products/create','create')->name('product.create');
+    Route::post('products','store')->name('product.store');
+});
+#end
+
+
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */
