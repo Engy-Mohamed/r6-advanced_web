@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Traits\Common;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -14,7 +14,8 @@ class ProductController extends Controller
     use Common;
     public function index()
     {
-        //
+        $products = Product::get();
+        return view('products', compact('products'));
     }
 
     /**
@@ -33,7 +34,7 @@ class ProductController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'price' => 'required|decimal:0,2|between:5,9999999999.99',
-            'shortDescription' => 'required|string|max:300', 
+            'shortDescription' => 'required|string|max:300',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
         ]);
 
@@ -41,7 +42,7 @@ class ProductController extends Controller
         $data['image'] = $file_name;
 
         Product::create($data);
-        return "the product is added successfully";
+        return redirect()->route('products.index');
     }
 
     /**
@@ -57,7 +58,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('edit_product', compact('product'));
     }
 
     /**
@@ -65,7 +67,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|string',
+            'price' => 'required|decimal:0,2|between:5,9999999999.99',
+            'shortDescription' => 'required|string|max:300',
+            'image' => 'mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $file_name = ($request->hasFile('image')) ? $this->uploadFile($request['image'], 'assets/images/product') : $request['old_image'];
+        $data['image'] = $file_name;
+
+        Product::where('id', $id)->update($data);
+        return redirect()->route('products.index');
     }
 
     /**
@@ -73,6 +86,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return "delete fn";
     }
 }

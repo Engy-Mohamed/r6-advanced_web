@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\carController;
 use App\Http\Controllers\ClassController;
-use App\Http\Controllers\exampleController;
+use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\DocBlock\Tags\Example;
@@ -44,7 +44,7 @@ Route::post('/submit_Page', function () {
 })->name('submit_Page');
 #end
 
-Route::get('test', [exampleController::class, 'my_data']);
+Route::get('test', [ExampleController::class, 'my_data']);
 Route::get('cars/create', [carController::class, 'create']);
 Route::post('cars', [carController::class, 'store'])->name('car.store');
 
@@ -90,11 +90,14 @@ Route::post('upload', [ExampleController::class, 'upload'])->name('upload');
 
 Route::get('index', [ExampleController::class, 'index'])->name('index');
 
-#for task9
+#for task9,10
 #begin
 Route::controller(ProductController::class)->group(function(){
-    Route::get('products/create','create')->name('product.create');
-    Route::post('products','store')->name('product.store');
+    Route::get('products/create','create')->name('products.create');
+    Route::post('products','store')->name('products.store');
+    Route::get('products','index')->name('products.index');
+    Route::get('products/{id}','edit')->name('products.edit')->whereNumber('id');
+    Route::put('products/{id}','update')->name('products.update');
 });
 #end
 Route::get('about', [ExampleController::class, 'about'])->name('example.about');
