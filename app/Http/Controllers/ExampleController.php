@@ -22,7 +22,7 @@ class ExampleController extends Controller
 
     public function index()
     {
-        $products = Product::orderBy('created_at', 'desc')->get()->take(3);
+        $products = Product::latest()->get()->take(3);
         return view('index',compact('products'));
     }
 
