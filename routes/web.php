@@ -101,6 +101,7 @@ Route::controller(ProductController::class)->group(function(){
 });
 #end
 Route::get('about', [ExampleController::class, 'about'])->name('example.about');
+Route::get('testonetoone', [ExampleController::class, 'test'])->name('example.test');
 
 /* Route::get('/submit_page', function () {
 return "submi";

@@ -69,6 +69,21 @@
               <input type="checkbox" class="form-check-input" style="padding: 0.7rem;" name="published" @checked(old('published')) />
             </div>
           </div>
+          <hr>
+          <div class="form-group mb-3 row">
+            <label for="" class="form-label col-md-2 fw-bold text-md-end">Category:</label>
+            <div class="col-md-10">
+              <select name="" id="" class="form-control">
+                <option value="">Select Category</option>
+                @foreach($categories as $category)
+                <option value="{{$category['id']}}">{{$category['name']}}</option>
+                @endforeach
+              </select>
+              @error('')
+                <div class="alert alert-warning">{{$message}}</div>
+              @enderror
+            </div>
+          </div>
           <div class="text-md-end">
             <button type="submit" class="btn mt-4 btn-secondary text-white fs-5 fw-bold border-0 py-2 px-md-5">
               Add Car
