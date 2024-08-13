@@ -38,6 +38,7 @@ class carController extends Controller
             'description' => 'required|string|max:1000', 
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'category_id' => 'required',
         ]);
         $file_name = $this->uploadFile($request['image'], 'assets\images\cars');
 
@@ -65,7 +66,8 @@ class carController extends Controller
     public function edit(string $id)
     {
         $car = Car::findOrFail($id);
-        return view('edit_car', compact('car'));
+        $categories = category::select('id','name')->get();
+        return view('edit_car', compact('car','categories'));
     }
 
     /**
@@ -79,7 +81,8 @@ class carController extends Controller
             'description' => 'required|string|max:1000', 
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
             'image' => 'mimes:png,jpg,jpeg|max:2048',
-            'published' => 'required:boolean'
+            'published' => 'required:boolean',
+            'category_id' => 'required',
         ]);
 
         $file_name = ($request->hasFile('image')) ? $this->uploadFile($request['image'], 'assets/images'):$request['old_image'];
