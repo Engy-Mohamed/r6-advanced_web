@@ -56,14 +56,14 @@ Route::get('classes/create', [ClassController::class, 'create']);
 Route::post('classes', [ClassController::class, 'store'])->name('class.store');
 #end
 
-Route::get('cars', [CarController::class, 'index'])->name('cars.index');
-Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit')->whereNumber('id');
-Route::post('cars/{id}', [CarController::class, 'update'])->name('cars.update');
-Route::get('cars/show/{id}', [CarController::class, 'show'])->name('cars.show');
-Route::get('cars/destroy/{id}', [CarController::class, 'destroy'])->name('cars.destroy');
-Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted');
-Route::patch('cars/restore', [CarController::class, 'restore'])->name('cars.restore');
-Route::delete('cars/trashed/delete', [CarController::class, 'force_delete'])->name('cars.force_delete');
+Route::get('cars', [CarController::class, 'index'])->name('cars.index')->middleware('verified');
+Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit')->whereNumber('id')->middleware('verified');
+Route::post('cars/{id}', [CarController::class, 'update'])->name('cars.update')->middleware('verified');
+Route::get('cars/show/{id}', [CarController::class, 'show'])->name('cars.show')->middleware('verified');
+Route::get('cars/destroy/{id}', [CarController::class, 'destroy'])->name('cars.destroy')->middleware('verified');
+Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted')->middleware('verified');
+Route::patch('cars/restore', [CarController::class, 'restore'])->name('cars.restore')->middleware('verified');
+Route::delete('cars/trashed/delete', [CarController::class, 'force_delete'])->name('cars.force_delete')->middleware('verified');
 
 #task5
 #begin
@@ -205,3 +205,7 @@ return "welcome to ger volkswagen";
 /* Route::fallback(function () {
 return redirect('/welcome');
 }); */
+
+Auth::routes(['verify' => true]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

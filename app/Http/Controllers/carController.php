@@ -38,7 +38,7 @@ class carController extends Controller
             'description' => 'required|string|max:1000', 
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
         ]);
         $file_name = $this->uploadFile($request['image'], 'assets\images\cars');
 
@@ -55,19 +55,11 @@ class carController extends Controller
      */
     public function show(string $id)
     {
-        $car = Car::findOrFail($id);
+        $car = Car::with('category')->findOrFail($id);
+        dd($car);
         $car['image'] = 'assets/images/cars/' . $car['image'];
-        return view('car_details', compact('car'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $car = Car::findOrFail($id);
-        $categories = category::select('id','name')->get();
-        return view('edit_car', compact('car','categories'));
+        $category = category::findOrFail($car['category_id']);
+        return view('car_details', compact('car','category'));
     }
 
     /**
@@ -82,7 +74,7 @@ class carController extends Controller
             'price' => 'required|decimal:0,2|between:10000,9999999999.99',
             'image' => 'mimes:png,jpg,jpeg|max:2048',
             'published' => 'required:boolean',
-            'category_id' => 'required',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         $file_name = ($request->hasFile('image')) ? $this->uploadFile($request['image'], 'assets/images'):$request['old_image'];

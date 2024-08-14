@@ -20,6 +20,6 @@ class Car extends Model
 
     public function category()
     {
-        $this->belongsTo(category::class);
+        $this->belongsTo(category::class,'category_id');
     }
 }

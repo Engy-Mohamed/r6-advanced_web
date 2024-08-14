@@ -79,7 +79,7 @@
                 <option value="{{$category['id']}}" @selected(old('category_id') == $category['id'])>{{$category['name']}}</option>
                 @endforeach
               </select>
-              @error('')
+              @error('category_id')
                 <div class="alert alert-warning">{{$message}}</div>
               @enderror
             </div>
