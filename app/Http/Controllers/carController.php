@@ -56,10 +56,8 @@ class carController extends Controller
     public function show(string $id)
     {
         $car = Car::with('category')->findOrFail($id);
-        dd($car);
         $car['image'] = 'assets/images/cars/' . $car['image'];
-        $category = category::findOrFail($car['category_id']);
-        return view('car_details', compact('car','category'));
+        return view('car_details', compact('car'));
     }
 
     /**

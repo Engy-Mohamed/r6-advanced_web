@@ -41,7 +41,7 @@
               </div>
               <div class="mb-4">
                 <p class="card-text">
-                  <span class="fw-bold"></span> {{$car['published']?'Yes':'No'}}
+                  <span class="fw-bold">Published</span> {{$car['published']?'Yes':'No'}}
                 </p>
               </div>
               <div class="mb-4">
@@ -51,7 +51,7 @@
               </div>
               <div class="mb-4">
                 <p class="card-text">
-                  <span class="fw-bold">Category:</span><br>{{$category['name']}}
+                  <span class="fw-bold">Category:</span><br>{{$car['category']['name']}}
                 </p>
               </div>
               <div class="text-md-end">
