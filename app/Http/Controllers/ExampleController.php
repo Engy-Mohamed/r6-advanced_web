@@ -58,8 +58,8 @@ class ExampleController extends Controller
             'email' => 'required|email:rfc,dns',
         ]);
         //Mail::to($request->user())->send(new contactUs($data));
-        $hr_email = "Hr@laravel.com";
-        Mail::to($hr_email )->send(new contactUs($data));
+        $support_email = "support@laravel.com";
+        Mail::to($support_email )->send(new contactUs($data));
         return "Thank you for contacting us";
     }
 }
