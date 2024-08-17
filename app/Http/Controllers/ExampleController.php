@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
+use App\Mail\contactUs;
+use Illuminate\Support\Facades\Mail;
 
 class ExampleController extends Controller
 {
@@ -43,5 +45,21 @@ class ExampleController extends Controller
         ->where('students.id', '=', 1)
         ->first();
     }
-
+    public function contact_us()
+    {
+        return view('contact_us');
+    }
+    public function store(Request $request)
+    { 
+        $data = $request->validate([
+            'name' => 'required|string',
+            'message' => 'required|string|max:1000', 
+            'subject' => 'required|string|max:100',
+            'email' => 'required|email:rfc,dns',
+        ]);
+        //Mail::to($request->user())->send(new contactUs($data));
+        $admin_email = "Hr@laravel.com";
+        Mail::to($admin_email )->send(new contactUs($data));
+        return "Thank you for contacting us";
+    }
 }

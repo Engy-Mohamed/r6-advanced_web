@@ -103,8 +103,9 @@ Route::controller(ProductController::class)->group(function(){
 Route::get('about', [ExampleController::class, 'about'])->name('example.about');
 Route::get('testonetoone', [ExampleController::class, 'test'])->name('example.test');
 
-
-
+#Task 12
+Route::get('contact_us', [ExampleController::class, 'contact_us'])->name('example.contact_us')->middleware('verified');
+Route::POST('contact_us', [ExampleController::class, 'store'])->name('example.store');
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */
