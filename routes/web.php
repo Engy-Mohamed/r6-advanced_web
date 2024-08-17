@@ -105,7 +105,7 @@ Route::get('testonetoone', [ExampleController::class, 'test'])->name('example.te
 
 #Task 12
 Route::get('contact_us', [ExampleController::class, 'contact_us'])->name('example.contact_us')->middleware('verified');
-Route::POST('contact_us', [ExampleController::class, 'store'])->name('example.store');
+Route::POST('contact_us', [ExampleController::class, 'store'])->name('example.store')->middleware('verified');
 /* Route::get('/submit_page', function () {
 return "submi";
 })->name('submit_page'); */
