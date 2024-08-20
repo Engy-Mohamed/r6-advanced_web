@@ -24,7 +24,7 @@
       <div class="bg-light p-5 rounded">
         <h2 class="fw-bold fs-2 mb-5 pb-2">Edit Car</h2>
         <form action="{{route('cars.update',$car['id'])}}" method="POST" class="px-md-5" enctype="multipart/form-data">
-        @csrf 
+          @csrf 
           <div class="form-group mb-3 row">
             <label for="carTitle" class="form-label col-md-2 fw-bold text-md-end">Car Title:</label>
             <div class="col-md-10">

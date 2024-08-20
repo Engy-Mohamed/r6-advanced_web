@@ -60,6 +60,14 @@ class carController extends Controller
         return view('car_details', compact('car'));
     }
 
+    public function edit(string $id)
+    {
+        $car = Car::findOrFail($id);
+        $car['image'] = 'assets/images/cars/' . $car['image'];
+        $categories = category::select('id','name')->get();
+        return view('edit_car', compact('car','categories'));
+    }
+
     /**
      * Update the specified resource in storage.
      */

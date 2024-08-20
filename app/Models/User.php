@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'mobile',
-    
+
     ];
 
     /**
@@ -46,4 +46,11 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+    public function hasRole($roles)
+    {
+
+        return true;
+        // just a dummy method for testing the custom middleware
+    }
+    
 }

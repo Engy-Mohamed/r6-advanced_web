@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\carController;
+
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\DocBlock\Tags\Example;
+use App\Http\Middleware\EnsureUserHasRole;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,8 +46,7 @@ Route::post('/submit_Page', function () {
 #end
 
 Route::get('test', [ExampleController::class, 'my_data']);
-Route::get('cars/create', [carController::class, 'create']);
-Route::post('cars', [carController::class, 'store'])->name('car.store');
+
 
 #for task4
 #the task is to save the class data in the database
@@ -56,14 +56,7 @@ Route::get('classes/create', [ClassController::class, 'create']);
 Route::post('classes', [ClassController::class, 'store'])->name('class.store');
 #end
 
-Route::get('cars', [CarController::class, 'index'])->name('cars.index')->middleware('verified');
-Route::get('cars/{id}', [CarController::class, 'edit'])->name('cars.edit')->whereNumber('id')->middleware('verified');
-Route::post('cars/{id}', [CarController::class, 'update'])->name('cars.update')->middleware('verified');
-Route::get('cars/show/{id}', [CarController::class, 'show'])->name('cars.show')->middleware('verified');
-Route::get('cars/destroy/{id}', [CarController::class, 'destroy'])->name('cars.destroy')->middleware('verified');
-Route::get('cars/trashed', [CarController::class, 'showDeleted'])->name('cars.showDeleted')->middleware('verified');
-Route::patch('cars/restore', [CarController::class, 'restore'])->name('cars.restore')->middleware('verified');
-Route::delete('cars/trashed/delete', [CarController::class, 'force_delete'])->name('cars.force_delete')->middleware('verified');
+
 
 #task5
 #begin
@@ -93,7 +86,7 @@ Route::get('index', [ExampleController::class, 'index'])->name('index');
 #for task9,10
 #begin
 Route::controller(ProductController::class)->group(function(){
-    Route::get('products/create','create')->name('products.create');
+    Route::get('products/create','create')->name('products.create')->middleware(["verified",'role:editor']);
     Route::post('products','store')->name('products.store');
     Route::get('products','index')->name('products.index');
     Route::get('products/{id}','edit')->name('products.edit')->whereNumber('id');
