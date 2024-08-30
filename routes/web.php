@@ -4,9 +4,11 @@
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\DocBlock\Tags\Example;
 use App\Http\Middleware\EnsureUserHasRole;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('welcome');
@@ -101,6 +103,10 @@ Route::get('contact_us', [ExampleController::class, 'contact_us'])->name('exampl
 Route::POST('contact_us', [ExampleController::class, 'store'])->name('example.store')->middleware('verified');
 #end
 
+#social_media _login
+Route::get('auth/github/redirect', [SocialController::class, 'redirect'])->name('socialLogin');
+Route::get('auth/github/callback', [SocialController::class, 'callback']);
+#end
 
 /* Route::get('/submit_page', function () {
 return "submi";
@@ -207,6 +213,9 @@ return redirect('/welcome');
 
 Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
  
 
 
